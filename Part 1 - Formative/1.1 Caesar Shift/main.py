@@ -4,6 +4,7 @@ alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 
 def caesar_encode(text, n):
+    text = text.upper()
     new_str = ""
 
     for let in text:
@@ -17,7 +18,7 @@ def caesar_decode(text, n):
     return ""
 
 
-test = "HELLO"
+test = ("apple", "orange")
 shift = 5
 enc = caesar_encode(test, shift)
 dec = caesar_decode(enc, shift)
