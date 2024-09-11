@@ -3,21 +3,28 @@
 alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 
-def sub_encode(text, codebet):
+def sub_encode(text, cipher_alphabet):
+    text = text.upper()
     new_str = ""
     for let in text:
-        index = alpha.index(let)
-        new_str += cipher_alphabet[(index) % 26]
+        if let in alpha:
+            index = alpha.index(let)
+            new_str += cipher_alphabet[index]
+        else:
+            new_str += let
     return new_str
 
 
-def sub_decode(text, codebet):
+def sub_decode(text, cipher_alphabet):
+    text = text.upper()
     new_str = ""
     for let in text:
-        index = cipher_alphabet.index(let)
-        new_str += alpha[(index) % 26]
+        if let in cipher_alphabet:
+            index = cipher_alphabet.index(let)
+            new_str += alpha[index]
+        else:
+            new_str += let
     return new_str
-
 
 
 test = "HELLOWORLD"
