@@ -5,6 +5,7 @@ alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 def sub_encode(text, cipher_alphabet):
     text = text.upper()
+
     new_str = ""
     for let in text:
         if let in alpha:
@@ -27,7 +28,7 @@ def sub_decode(text, cipher_alphabet):
     return new_str
 
 
-test = "HELLOWORLD"
+test = "#$%"
 cipher_alphabet = "WJKUXVBMIYDTPLHZGONCRSAEFQ"
 enc = sub_encode(test, cipher_alphabet)
 dec = sub_decode(enc, cipher_alphabet)

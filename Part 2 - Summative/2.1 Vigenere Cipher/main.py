@@ -4,6 +4,14 @@ alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 def vig_encode(text, keyword):
   return ""
+  new_str = ""
+  text = text.upper()
+  for i in range(len(text)):
+    if text[i] in alpha:
+      new_str = let + keyword[let % len] - 2 * "a" % 26 + "a"
+    else:
+      new_str = text[i]
+  return new_str
 
 
 def vig_decode(text, keyword):
@@ -17,3 +25,5 @@ dec = vig_decode(enc, vig_key)
 print(enc)
 print(dec)
 # If this worked, dec should be the same as test!
+
+
