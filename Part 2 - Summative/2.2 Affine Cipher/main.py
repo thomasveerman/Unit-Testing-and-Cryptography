@@ -7,7 +7,7 @@ alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 # PART 1
 # These functions are provided for you!
 def mod_inverse_helper(a, b):
-    q, r = a//b, a%b
+    q, r = a//b, a % b
     if r == 1:
         return (1, -1 * q)
     u, v = mod_inverse_helper(b, r)
@@ -33,7 +33,8 @@ def affine_decode(text, a, b):
     for letter in text:
         y = alpha.index(letter)
         decoded_letter = (inverse_a * (y + b)) % 26
-        return result
+        result += alpha[decoded_letter]
+    return result
 
 test = "HELLOWORLD"
 a = 3
@@ -49,15 +50,23 @@ print(dec)
 # PART 2
 # These  are the functions you'll need to write:
 def convert_to_num(ngram):
-    return 0
+    num = 0
+    length = len(ngram)
+    for i in range(length):
+        num += alpha.index(ngram[i]) * (26 ** (length - i - 1))
+    return num
 
 def convert_to_text(num, n):
     return ''
+    for i in range(n):
+        remainder = num % 26
+        result = alpha[remainder] + result
+        num //= 26
+    return result
 
 test = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
-l = len(test)
 num = convert_to_num(test)
-answer = convert_to_text(num, l)
+answer = convert_to_text(num, len(test))
 print(num)
 print(answer)
 # If this worked, answer should be the same as test!
@@ -68,7 +77,16 @@ print(answer)
 
 # These are the functions you'll need to write:
 def affine_n_encode(text, n, a, b):
+    while len(text) % n != 0:
+        text += 'X'
+
     return ''
+    for i in range(0, len(text), n):
+        ngram = text[i:i+n]
+        x = convert_to_num(ngram)
+        encoded_num = (a * x + b) % (26 ** n)
+        result += convert_to_text(encoded_num, n)
+    return result
 
 def affine_n_decode(text, n, a, b):
     return ''
