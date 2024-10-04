@@ -29,10 +29,10 @@ def affine_encode(text, a, b):
 
 def affine_decode(text, a, b):
     result = ''
-    inverse_a = mod_inverse(a, 26)
+    inverse_a = mod_inverse(a,26)
     for letter in text:
         y = alpha.index(letter)
-        decoded_letter = (inverse_a * (y + b)) % 26
+        decoded_letter = (inverse_a * (y - b)) % 26
         result += alpha[decoded_letter]
     return result
 
@@ -57,7 +57,7 @@ def convert_to_num(ngram):
     return num
 
 def convert_to_text(num, n):
-    return ''
+    result = ''
     for i in range(n):
         remainder = num % 26
         result = alpha[remainder] + result
@@ -78,9 +78,10 @@ print(answer)
 # These are the functions you'll need to write:
 def affine_n_encode(text, n, a, b):
     while len(text) % n != 0:
+        
         text += 'X'
 
-    return ''
+    result = ''
     for i in range(0, len(text), n):
         ngram = text[i:i+n]
         x = convert_to_num(ngram)
@@ -89,7 +90,13 @@ def affine_n_encode(text, n, a, b):
     return result
 
 def affine_n_decode(text, n, a, b):
-    return ''
+    result = ''
+    inverse_a = mod_inverse(a, 26 ** n)
+    for i in range(0, len(text), n):
+        ngram = text[i:i+n]
+        y = convert_to_num(ngram)
+        decoded_num = (inverse_a * (y - b)) % (26 ** n)
+    return result
 
 test = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
 n = 5

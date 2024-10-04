@@ -3,22 +3,34 @@
 alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 def vig_encode(text, keyword):
-  return ""
-  new_str = ""
   text = text.upper()
+  encoded_message = ""
+  keyword_repeated = ""
   for i in range(len(text)):
-    if text[i] in alpha:
-      new_str = let + keyword[let % len] - 2 * "a" % 26 + "a"
-    else:
-      new_str = text[i]
-  return new_str
+    keyword_repeated += keyword[i % len(keyword)]
+  for i in range(len(text)):
+    message_index = alpha.index(text[i])
+    keyword_index = alpha.index(keyword_repeated[i])
+    encoded_index = (message_index + keyword_index) % 26
+    encoded_message += alpha[encoded_index]
+  return encoded_message
 
 
 def vig_decode(text, keyword):
-  return ""
+  text = text.upper()
+  decoded_message = ""
+  keyword_repeated = ""
+  for i in range(len(text)):
+    keyword_repeated += keyword[i % len(keyword)]
+  for i in range(len(text)):
+    encoded_index = alpha.index(text[i])
+    keyword_index = alpha.index(keyword_repeated[i])
+    decoded_index = (encoded_index - keyword_index) % 26
+    decoded_message += alpha[decoded_index]
+  return decoded_message
 
 
-test = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
+test = "thecatwaslazyandtired"
 vig_key = "TEST"
 enc = vig_encode(test, vig_key)
 dec = vig_decode(enc, vig_key)
